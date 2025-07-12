@@ -8,6 +8,7 @@ A modular Java-based Address Book application designed to start with a powerful 
 Address-Book/                        ← Top-level repository
 ├── README.md                        ← Overview, usage, and module guide
 ├── .gitignore                       ← Files and folders to ignore in Git
+├── LICENSE
 │
 ├── address-book-cli/                ← CLI module: core functionality and persistence
 │   ├── README.md                    ← CLI-specific instructions and usage examples
