@@ -1,38 +1,49 @@
 package com.addressbook.model;
-public class Contact {
-    private String firstname;
-    private String lastname;
-    private long mobile;
+public class Contact implements Comparable<Contact>{
+    private String name;	
+    private long mobile;		
     private String address;
     private String email;
-    private String github;
 
     @Override
 	public String toString() {
-        return "Person [firstname=" + firstname + ", lastname=" + lastname + ", address=" + address + ", mobile=" + mobile + ", email=" + email + ", github=" + github + "]";
+        return "Person [name=" + name + ", address=" + address + ", mobile=" + mobile + ", email=" + email + "]";
     }
 
-	public String getFirstname() {
-		return firstname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public String getName() {
+		return this.name;
 	}
 
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setMobile(Long mb) {
+		this.mobile = mb;
 	}
 
 	public Long getMobile() {
-		return mobile;
+		return this.mobile;
 	}
 
-	public void setMobile(Long mobile) {
-		this.mobile = mobile;
+	public void setAddress(String add) {
+		this.address = add;
+	}
+
+	public String getAddress() {
+		return this.address;
+	}
+
+	public void setEmail(String em) {
+		this.email = em;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	@Override
+	public int compareTo(Contact c2) {
+		return this.name.compareToIgnoreCase(c2.name);
 	}
 }

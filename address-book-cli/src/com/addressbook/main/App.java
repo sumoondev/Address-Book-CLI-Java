@@ -30,8 +30,7 @@ public class App {
             System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
 
             System.out.println("=== Address Book CLI ===\n");
-            System.out.println("1) Add Contact\n2) List All Contacts\n3) Search Contacts\n4) Edit Contact\n5) Delete Contact\n6) Import vCard (.vcf)\n7) Export Contact to vCard\n8) Undo Last Action\n" + //
-                                "9) Redo Last Action\n0) Exit");
+            System.out.println("1) Add Contact\n2) List All Contacts\n3) Search Contacts\n4) Edit Contact\n5) Delete Contact\n6) Import vCard (.vcf)\n7) Export Contact to vCard\n8) Undo Last Action\n9) Redo Last Action\n0) Exit");
             System.out.print("Enter Choice: ");
             int choice = sc.nextInt();
             switch(choice) {
