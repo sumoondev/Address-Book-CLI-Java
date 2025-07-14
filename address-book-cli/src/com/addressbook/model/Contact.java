@@ -4,6 +4,17 @@ public class Contact implements Comparable<Contact>{
     private long mobile;		
     private String address;
     private String email;
+	Contact left;
+	Contact right;
+
+	public Contact(String name, long mobile, String address, String email) {
+		this.name = name;
+		this.mobile = mobile;
+		this.address = address;
+		this.email = email;
+		this.left = null;
+		this.right = null;
+	}
 
     @Override
 	public String toString() {
