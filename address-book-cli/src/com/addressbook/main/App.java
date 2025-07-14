@@ -2,12 +2,12 @@ package com.addressbook.main;
 
 import java.util.Scanner;
 
-// import com.addressbook.service.Service;
+import com.addressbook.service.Service;
 // import com.addressbook.util.Utility;
 
 public class App {
     public static void main(String[] args) {
-        // Service serv = new Service();
+        Service serv = new Service();
         // Utility util = new Utility();
 
         Scanner sc = new Scanner(System.in);
@@ -27,7 +27,8 @@ public class App {
                 Thread.currentThread().interrupt();
             }
 
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
 
             System.out.println("=== Address Book CLI ===\n");
             System.out.println("1) Add Contact\n2) List All Contacts\n3) Search Contacts\n4) Edit Contact\n5) Delete Contact\n6) Import vCard (.vcf)\n7) Export Contact to vCard\n8) Undo Last Action\n9) Redo Last Action\n0) Exit");
@@ -35,7 +36,7 @@ public class App {
             int choice = sc.nextInt();
             switch(choice) {
                 case 1:
-
+                    serv.addContact(sc);
                     break;
                 case 2:
 
