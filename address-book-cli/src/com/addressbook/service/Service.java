@@ -13,9 +13,12 @@ public class Service {
 
     public static boolean isValidGmail(String email) {
         String validate = "@gmail.com";
-        System.out.println(email.substring(email.length()-10));
+        // System.out.println(email.substring(email.length()-10));
+        if(email.length() <= validate.length()) {
+            return false;
+        }
         
-        if (email.length() > validate.length() && email.substring(email.length() - validate.length()).equals(validate)) {
+        if (email.substring(email.length() - validate.length()).equals(validate)) {
             return true;
         }
 
