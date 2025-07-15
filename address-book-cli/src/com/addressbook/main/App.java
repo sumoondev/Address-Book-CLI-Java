@@ -1,19 +1,21 @@
 package com.addressbook.main;
 
-import java.util.Scanner;
-
+import com.addressbook.model.Contact;
 import com.addressbook.service.Service;
-// import com.addressbook.util.Utility;
+import com.addressbook.util.Utility;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Service serv = new Service();
-        // Utility util = new Utility();
+        Utility util = new Utility();
+        Contact persons[] = new Contact[26];
 
         Scanner sc = new Scanner(System.in);
         
         boolean isExit = false;
-        System.out.print("Loading state ");
+        System.out.println("Loading state ");
+        util.readJson(persons);
 
         while(!isExit) {
             try {
@@ -39,7 +41,7 @@ public class App {
                     serv.addContact(sc);
                     break;
                 case 2:
-
+                    
                     break;
                 case 3:
 
