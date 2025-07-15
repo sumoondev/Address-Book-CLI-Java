@@ -135,8 +135,8 @@ You can adjust:
 ```
 address-book-cli/
 ├── README.md                   
-├── build.gradle                
-├── build/                       ← Gradle output (`.class`, JARs)
+├── pom.xml                
+├── build/                      ← (`.class`, JARs)
 ├── data/
 │   └── addressbook.json        ← JSON persistence file
 └── src/
@@ -146,18 +146,14 @@ address-book-cli/
     │       ├── service/Service.java    ← AddressBook, Command interface & implementations
     │       └── util/Utility.java       ← JSON & vCard (de)serialization, validators
     └── test/
-        └── com/addressbook/            ← JUnit 5 tests
+        └── com/addressbook/            ← test files
 ```
 
 ---
 
 ## Testing
 
-Run unit tests with:
-
-```bash
-./gradlew test
-```
+Run unit tests 
 
 <!-- A coverage report is available at `build/reports/jacoco/test/html/index.html`. -->
 
