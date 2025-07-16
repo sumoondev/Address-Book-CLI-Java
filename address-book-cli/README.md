@@ -135,10 +135,10 @@ You can adjust:
 ```
 address-book-cli/
 ├── README.md                   
-├── pom.xml                
-├── build/                      ← (`.class`, JARs)
+├── build.gradle                
+├── build/                              ← (`.class`, JARs)
 ├── data/
-│   └── addressbook.json        ← JSON persistence file
+│   └── addressbook.json                ← JSON persistence file
 └── src/
     ├── com/addressbook/
     │       ├── main/App.java           ← Entry point & menu loop

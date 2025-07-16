@@ -1,21 +1,21 @@
 package com.addressbook.main;
 
-import com.addressbook.model.Contact;
+// import com.addressbook.model.Contact;
 import com.addressbook.service.Service;
-import com.addressbook.util.Utility;
+// import com.addressbook.util.Utility;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         Service serv = new Service();
-        Utility util = new Utility();
-        Contact persons[] = new Contact[26];
+        // Utility util = new Utility();
+        // Contact persons[] = new Contact[26];
 
         Scanner sc = new Scanner(System.in);
         
         boolean isExit = false;
         System.out.println("Loading state ");
-        util.readJson(persons);
+        // util.readJson(persons);
 
         while(!isExit) {
             try {

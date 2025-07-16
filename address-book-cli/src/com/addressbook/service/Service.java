@@ -191,18 +191,18 @@ public class Service {
         int i = 1;
         
         System.out.print("Full Name : ");
-        
+        name = sc.nextLine();
 
         // name = name.substring(0,1).toUpperCase() + name.substring(1);
-        do {
-            name = sc.nextLine();
-            if(!isNameValid(name)) {
-                if(i > 3) {
-                    return;
-                }
-                display(i++);
-            }
-        } while(!isNameValid(name));
+        // while(!isNameValid(name)) {
+        //     if(!isNameValid(name)) {
+        //         if(i > 3) {
+        //             return;
+        //         }
+        //         display(i++);
+        //     }
+        //     name = sc.nextLine();
+        // } 
         i = 1;
 
         System.out.print("Mobile : ");
@@ -242,7 +242,5 @@ public class Service {
                 display(name, mobile, address, i++);
             }
         } while(!isValidGmail(email));
-
-        // sc.close();
     }
 }
