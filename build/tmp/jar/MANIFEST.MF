@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: com.addressbook.App
+Implementation-Title: Address Book CLI
+Implementation-Version: 1.0.0
+

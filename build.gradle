@@ -1,0 +1,104 @@
+// plugins {
+//     id 'java'
+// }
+
+// group = 'com.addressbook'
+// version = '1.0-SNAPSHOT'
+
+// java {
+//     sourceCompatibility = JavaVersion.VERSION_17
+//     targetCompatibility = JavaVersion.VERSION_17
+//     toolchain {
+//         languageVersion = JavaLanguageVersion.of(17)
+//     }
+// }
+
+// repositories {
+//     mavenCentral()
+// }
+
+// dependencies {
+//     implementation("com.google.code.gson:gson:2.7")
+// }
+
+// // application {
+// //     mainClass = 'build/com/addressbook'
+// // }
+
+// // test {
+// //     useJUnitPlatform()
+// // }
+
+// tasks.withType(JavaCompile) {
+//     options.encoding = 'UTF-8'
+// }
+
+// jar {
+//     manifest {
+//         attributes(
+//             'Main-Class': 'com.addressbook.App' // Specify the main class
+//         )
+//     }
+
+// }
+
+// task run(type: JavaExec) {
+//     main = 'com.addressbook.App' // Specify the main class to run
+//     classpath = sourceSets.main.runtimeClasspath
+// }
+
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group 'com.addressbook'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+application {
+    mainClass = 'com.addressbook.App'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': 'com.addressbook.App',
+            'Implementation-Title': 'Address Book CLI',
+            'Implementation-Version': project.version
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+task runApp(type: JavaExec) {
+    group = "Execution"
+    description = "Run the Address Book CLI"
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.addressbook.App'
+    standardInput = System.in
+}
+
+task dist(type: Copy) {
+    from jar
+    into 'build/dist'
+}
