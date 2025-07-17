@@ -25,6 +25,3 @@ replay_pid*
 
 # vscode profile
 .vscode
-
-# maven
-address-book-cli/target/
