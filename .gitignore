@@ -25,3 +25,6 @@ replay_pid*
 
 # vscode profile
 .vscode
+
+# Intellij
+.idea
