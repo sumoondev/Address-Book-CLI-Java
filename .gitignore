@@ -28,3 +28,6 @@ replay_pid*
 
 # Intellij
 .idea
+
+# target
+/target/
