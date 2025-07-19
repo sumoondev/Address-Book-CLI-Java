@@ -1,7 +1,8 @@
 package com.addressbook;
+
 public class Contact implements Comparable<Contact>{
-    private String name;	
-    private long mobile;		
+	private String name;
+    private long mobile;
     private String address;
     private String email;
 	Contact left;
@@ -61,5 +62,4 @@ public class Contact implements Comparable<Contact>{
 	public int compareTo(String cname) {
 		return this.name.compareToIgnoreCase(cname);
 	}
-
 }

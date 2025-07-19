@@ -1,40 +1,35 @@
 package com.addressbook;
 
-import java.io.File;
-import java.io.IOException;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.*;
+import java.lang.reflect.Type;
 
 public class Utility {
-    private String path = "address-book-cli/data/addressbook.json";
-    public boolean readJson(Contact persons[]) {
-        try {
-            File file = new File(path);
-            if(file.exists()) {
-                if(file.length() != 0) {
-//                     ObjectMapper objectmapper = new ObjectMapper();
+    private static final String EXTERNAL_FILE_PATH = "addressbook.json";
+    private Gson gson = new Gson();
 
-                    System.out.println("Contact(s) found !!");
-                    Thread.sleep(1000);
-                    return true;
-                }
-                System.out.println("Contact found 0");
-                for(int i = 0; i < persons.length; i++) {
-                    persons[i] = null;
-                }
-                Thread.sleep(1000);
-                return true;
-            }
-            System.out.println("No file found to read!!");
-            file.createNewFile();
-            Thread.sleep(1000);
-            return true;
-        } catch (IOException e) {
-            System.out.println("An error occurred.!!!");
-            e.printStackTrace();
-        } catch (InterruptedException f) {
-            Thread.currentThread().interrupt();
+    public static void clearConsole() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println();
         }
-        
-        return false;
+    }
+
+//    public void loadContacts(Contact[] persons) {
+//
+//    }
+
+    public void saveContacts(Contact[] persons) {
+        if (persons == null) {
+            System.out.println("No contacts to save (array is null).");
+            return;
+        }
+        try (Writer writer = new FileWriter(EXTERNAL_FILE_PATH)) {
+            gson.toJson(persons, writer);
+            System.out.println("Contacts saved to " + EXTERNAL_FILE_PATH);
+        } catch (IOException e) {
+            System.err.println("Could not save contacts");
+        }
     }
 }
