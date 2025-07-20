@@ -10,124 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Service {
-//     private List<Contact> contacts;
-//     private static final String RESOURCE_FILE_PATH = "/data/addressbook.json";
-//     private static final String EXTERNAL_FILE_PATH = "addressbook.json";
-//     private Gson gson;
-
-//     public Service() {
-//         contacts = new ArrayList<>();
-//         gson = new Gson();
-//     }
-
-//     public void loadContacts() {
-//         File externalFile = new File(EXTERNAL_FILE_PATH);
-//         if(externalFile.exists()) {
-//             try (Reader reader = new FileReader(externalFile)) {
-//                 Type contactListType = new TypeToken<List<Contact>>() {}.getType();
-//                 contacts = gson.fromJson(reader, contactListType);
-//                 if (contacts == null) {
-//                     contacts = new ArrayList<>();
-//                 }
-//                 System.out.println("Contacts loaded from external file.");
-//                 return; // Loaded from external, so no need to load from resource
-//             } catch (IOException e) {
-//                 System.out.println("Could not load contacts: " + e.getMessage());
-//             }
-//         }
-
-//         // If no external file, or external file failed, try loading from the bundled resource
-//         try (InputStream inputStream = getClass().getResourceAsStream(RESOURCE_FILE_PATH);
-//              Reader reader = new InputStreamReader(inputStream)) { // Use InputStreamReader for character stream
-
-//             if (inputStream == null) {
-//                 System.out.println("Resource not found: " + RESOURCE_FILE_PATH + ". Starting with empty contacts.");
-//                 contacts = new ArrayList<>(); // Initialize empty if resource not found
-//                 return;
-//             }
-
-//             Type contactListType = new TypeToken<List<Contact>>() {}.getType();
-//             contacts = gson.fromJson(reader, contactListType);
-//             if (contacts == null) {
-//                 contacts = new ArrayList<>();
-//             }
-//             System.out.println("Contacts loaded from bundled resource.");
-
-//         } catch (Exception e) { // Catch Exception to cover NullPointerException from getResourceAsStream if resource is null
-//             System.out.println("Could not load contacts from bundled resource: " + e.getMessage());
-//             contacts = new ArrayList<>(); // Ensure contacts is initialized even on error
-//         }
-//     }
-
-//     public void saveContacts() {
-// //        try (Writer writer = new FileWriter(FILE_PATH)) {
-// //            gson.toJson(contacts, writer);
-// //        } catch (IOException e) {
-// //            System.out.println("Could not save contacts: " + e.getMessage());
-// //        }
-
-//         // When saving, you generally want to save to a location that can be written to
-//         // This usually means the current working directory, or a specified data directory.
-//         // It's not advisable to try to write back into the bundled JAR resource.
-//         File externalFile = new File(EXTERNAL_FILE_PATH);
-//         try (Writer writer = new FileWriter(externalFile)) {
-//             gson.toJson(contacts, writer);
-//             System.out.println("Contacts saved to " + externalFile.getAbsolutePath());
-//         } catch (IOException e) {
-//             System.out.println("Could not save contacts to external file: " + e.getMessage());
-//         }
-//     }
-
-//     public void addContact(Scanner scanner) {
-//         System.out.print("Enter name: ");
-//         String name = scanner.nextLine();
-//         System.out.print("Enter mobile: ");
-//         String mobile = scanner.nextLine();
-//         System.out.print("Enter address: ");
-//         String address = scanner.nextLine();
-//         System.out.print("Enter email: ");
-//         String email = scanner.nextLine();
-
-//         contacts.add(new Contact(name, mobile, address, email));
-//         System.out.println("Contact added successfully.");
-//     }
-
-//     public void viewContacts() {
-//         if (contacts.isEmpty()) {
-//             System.out.println("No contacts available.");
-//             return;
-//         }
-//         for (Contact contact : contacts) {
-//             System.out.println(contact);
-//         }
-//     }
-
-//     public void updateContact(Scanner scanner) {
-//         System.out.print("Enter the name of the contact to update: ");
-//         String name = scanner.nextLine();
-//         for (Contact contact : contacts) {
-//             if (contact.getName().equalsIgnoreCase(name)) {
-//                 System.out.print("Enter new mobile: ");
-//                 contact.setMobile(scanner.nextLine());
-//                 System.out.print("Enter new address: ");
-//                 contact.setAddress(scanner.nextLine());
-//                 System.out.print("Enter new email: ");
-//                 contact.setEmail(scanner.nextLine());
-//                 System.out.println("Contact updated successfully.");
-//                 return;
-//             }
-//         }
-//         System.out.println("Contact not found.");
-//     }
-
-//     public void deleteContact(Scanner scanner) {
-//         System.out.print("Enter the name of the contact to delete: ");
-//         String name = scanner.nextLine();
-//         contacts.removeIf(contact -> contact.getName().equalsIgnoreCase(name));
-//         System.out.println("Contact deleted successfully.");
-//     }
-
-private static void printInvalid(int t) {
+    private static void printInvalid(int t) {
         try {
             Thread.sleep(100);
             System.out.print("I");
@@ -233,7 +116,7 @@ private static void printInvalid(int t) {
         System.out.print("Gmail : ");
     }
 
-    public void addContact(Scanner sc, Contact persons[]) {
+    public void addContact(Scanner sc, Contact persons) {
 
         String name = null, address = null , email = null;
         long mobile = -1;
@@ -255,7 +138,14 @@ private static void printInvalid(int t) {
             }
         } while(!isNameValid(name));
         i = 1;
+
         name = name.substring(0,1).toUpperCase() + name.substring(1);
+
+        Contact exists = searchContactUtil(persons, name);
+        if(exists != null) {
+            Utility.clearConsole();
+            System.out.println(exists.toString());
+        }
 
         System.out.print("Mobile : ");
 
@@ -296,11 +186,62 @@ private static void printInvalid(int t) {
             }
         } while(!isValidGmail(email));
 
-        int var = name.charAt(0) - 'a';
-
         Contact newContact = new Contact(name, mobile, address, email);
 
-        System.out.println("\n=== New Contact Added ===");
+        addContactUtil(persons, newContact);
 
+        System.out.println("\n=== New Contact Added ===");
+        sc.nextInt();
+    }
+
+    private void addContactUtil(Contact persons, Contact newContact) {
+        if(persons == null) {
+            persons = newContact;
+            return;
+        }
+        if(persons.compareTo(newContact) < 0) {
+            addContactUtil(persons.right, newContact);
+        }
+        else if(persons.compareTo(newContact) > 0) {
+            addContactUtil(persons.left, newContact);
+        }
+    }
+
+    public void searchContact(Scanner sc, Contact persons) {
+        Utility.clearConsole();
+        System.out.println("=== Add Contact ===\n");
+
+        System.out.print("Full Name : ");
+        sc.nextLine();
+        String newName = sc.nextLine();
+        Contact exists = searchContactUtil(persons, newName);
+        if(exists != null){
+            System.out.println(exists.toString());
+            return;
+        }
+        System.out.println(newName + " doesnot exist");
+    }
+
+    private Contact searchContactUtil(Contact persons, String newName) {
+        if(persons == null || persons.compareTo(newName) == 0) {
+            return persons;
+        }
+        if(persons.compareTo(newName) < 0) {
+            searchContactUtil(persons.right, newName);
+        }
+        else if(persons.compareTo(newName) > 0) {
+            searchContactUtil(persons.left, newName);
+        }
+        return null;
+    }
+
+    public void listContact(Contact persons) {
+        if(persons == null) {
+            System.out.println("null");
+            return;
+        }
+        listContact(persons.left);
+        System.out.println(persons.toString());
+        listContact(persons.right);
     }
 }

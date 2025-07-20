@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        Contact persons[] = new Contact[26];
+        Contact persons = null;
         Service serv = new Service();
         Utility util = new Utility();
         Scanner sc = new Scanner(System.in);
@@ -20,10 +20,12 @@ public class App {
                     serv.addContact(sc,persons);
                     break;
                 case 2:
-
+                     serv.listContact(persons);
+                     sc.nextInt();
                     break;
                 case 3:
-
+                    serv.searchContact(sc, persons);
+                    sc.nextInt();
                     break;
                 case 4:
 

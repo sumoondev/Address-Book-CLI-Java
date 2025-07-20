@@ -17,10 +17,10 @@ public class Contact implements Comparable<Contact>{
 		this.right = null;
 	}
 
-    // @Override
-	// public String toString() {
-    //     return "Person [name=" + name + ", address=" + address + ", mobile=" + mobile + ", email=" + email + "]";
-    // }
+    @Override
+	public String toString() {
+        return "Person [name=" + name + ", address=" + address + ", mobile=" + mobile + ", email=" + email + "]";
+    }
 
 	public void setName(String name) {
 		this.name = name;

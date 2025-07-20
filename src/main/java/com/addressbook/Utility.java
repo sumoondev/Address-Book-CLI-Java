@@ -20,7 +20,7 @@ public class Utility {
 //
 //    }
 
-    public void saveContacts(Contact[] persons) {
+    public void saveContacts(Contact persons) {
         if (persons == null) {
             System.out.println("No contacts to save (array is null).");
             return;
