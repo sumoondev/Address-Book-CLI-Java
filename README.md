@@ -10,16 +10,15 @@ Address-Book-CLI/                     ← Top-level repository
 ├── README.md                         ← Overview, usage, and module guide
 ├── .gitignore                        ← Files and folders to ignore in Git
 ├── LICENSE
-│── build.gradle                      ← Gradle build script for the CLI module
-│── build/                            ← Gradle output: compiled classes (`.class`) and JARs (auto-generated)
+│── pom.xml                           ← Maven build script for the CLI module
+│── target/                            ← output: compiled classes (`.class`) and JARs (auto-generated)
 │── src/
 │   └── com/addressbook/
 │       │── App.java                  ← Entry point and main menu loop (Menu, InputReader)
 │       ├── Contact.java              ← Domain class representing contacts
 │       ├── Service.java               ← Core logic: AddressBook, Command interface, Add/Edit/Delete commands
 │       └── Utility.java              ← Serializer (JSON & vCard extractor), Validator
-└── data/
-    └── addressbook.json              ← Default JSON persistence file
+└── addressbook.json              ← Default JSON persistence file
 
 ```
 <!-- ├── .github/                      ← GitHub configuration: CI/CD, issue & PR templates, project board
@@ -44,18 +43,19 @@ This project Address Book application implements:
 
 2. **Build and Run**
 
-   * **Gradle**:
+
+   * **Maven**:
 
      ```bash
-     gradle build
-     gradle run
+     mvn clean install
+     java -cp target/address-book-cli.jar com.addressbook.App
      ```
 
 3. **Usage**
 
-   * On startup, existing contacts are loaded from `data/addressbook.json` (if present).
+   * On startup, existing contacts are loaded from `addressbook.json` (if present).
    * Follow the on-screen menu to add, list, search, edit, or delete contacts.
-   * On exit, all changes are saved back to `data/addressbook.json`.
+   * On exit, all changes are saved back to `addressbook.json`.
 
 ---
 
