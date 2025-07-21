@@ -43,6 +43,11 @@ This project Address Book application implements:
 
 2. **Build and Run**
 
+   * **Required Dependencies**
+      ```
+      - Maven for java
+      - Language Support for Java(TM)
+      ```
 
    * **Maven**:
 
@@ -50,6 +55,8 @@ This project Address Book application implements:
      mvn clean install
      java -cp target/address-book-cli.jar com.addressbook.App
      ```
+
+   *Note: This was performed in terminal of Intellij Idea Community Edition and might not work in VS code*
 
 3. **Usage**
 
