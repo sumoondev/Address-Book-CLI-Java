@@ -7,6 +7,7 @@ public class Contact implements Comparable<Contact>{
     private String email;
 	Contact left;
 	Contact right;
+	public static int count = 0;
 
 	public Contact(String name, long mobile, String address, String email) {
 		this.name = name;

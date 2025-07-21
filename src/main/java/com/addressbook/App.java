@@ -1,12 +1,15 @@
 package com.addressbook;
 
+import sun.nio.ch.Util;
+
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        Contact persons = null;
-        Service serv = new Service();
         Utility util = new Utility();
+        Contact persons = util.loadContacts();
+
+        Service serv = new Service(persons);
         Scanner sc = new Scanner(System.in);
         boolean loop = true;
         while(loop) {
@@ -14,26 +17,26 @@ public class App {
             System.out.println("=== Address Book CLI ===\n");
             System.out.println("1) Add Contact\n2) List All Contacts\n3) Search Contacts\n4) Edit Contact\n5) Delete Contact\n0) Exit");
             System.out.print("Enter Choice: ");
-            int choice = sc.nextInt();
+            String choice = sc.nextLine();
             switch(choice) {
-                case 1:
-                    serv.addContact(sc,persons);
+                case "1":
+                    serv.addContact(sc);
                     break;
-                case 2:
-                     serv.listContact(persons);
-                     sc.nextInt();
+                case "2":
+                    serv.listContact();
+                    Utility.pressEnterToContinue();
                     break;
-                case 3:
-                    serv.searchContact(sc, persons);
-                    sc.nextInt();
+                case "3":
+                    serv.searchContact(sc);
+                    Utility.pressEnterToContinue();
                     break;
-                case 4:
+                case "4":
 
                     break;
-                case 5:
+                case "5":
 
                     break;
-                case 0:
+                case "0":
                     loop = false;
                     break;
                 default:
@@ -47,7 +50,7 @@ public class App {
         }
 
         try {
-            util.saveContacts(persons);
+            util.saveContacts(serv.contacts());
             Thread.sleep(500);
             System.out.print(".");
             Thread.sleep(500);

@@ -1,15 +1,20 @@
 package com.addressbook;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.*;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+//import com.google.gson.Gson;
+//import com.google.gson.reflect.TypeToken;
+//
+//import java.io.*;
+//import java.lang.reflect.Type;
+//import java.util.ArrayList;
+//import java.util.List;
 import java.util.Scanner;
 
 public class Service {
+    private static Contact root = null;
+    public Service(Contact persons) {
+        root = persons;
+    }
+
     private static void printInvalid(int t) {
         try {
             Thread.sleep(100);
@@ -116,7 +121,7 @@ public class Service {
         System.out.print("Gmail : ");
     }
 
-    public void addContact(Scanner sc, Contact persons) {
+    public void addContact(Scanner sc) {
 
         String name = null, address = null , email = null;
         long mobile = -1;
@@ -126,7 +131,7 @@ public class Service {
         int i = 1;
 
         System.out.print("Full Name : ");
-        name = sc.nextLine();
+//        name = sc.nextLine();
 
         do {
             name = sc.nextLine();
@@ -141,7 +146,7 @@ public class Service {
 
         name = name.substring(0,1).toUpperCase() + name.substring(1);
 
-        Contact exists = searchContactUtil(persons, name);
+        Contact exists = searchContactUtil(root, name);
         if(exists != null) {
             Utility.clearConsole();
             System.out.println(exists.toString());
@@ -186,35 +191,44 @@ public class Service {
             }
         } while(!isValidGmail(email));
 
-        Contact newContact = new Contact(name, mobile, address, email);
+        root = addContactUtil(root, new Contact(name, mobile, address, email));
 
-        addContactUtil(persons, newContact);
-
-        System.out.println("\n=== New Contact Added ===");
-        sc.nextInt();
-    }
-
-    private void addContactUtil(Contact persons, Contact newContact) {
-        if(persons == null) {
-            persons = newContact;
-            return;
-        }
-        if(persons.compareTo(newContact) < 0) {
-            addContactUtil(persons.right, newContact);
-        }
-        else if(persons.compareTo(newContact) > 0) {
-            addContactUtil(persons.left, newContact);
+        try {
+            Thread.sleep(500);
+            System.out.print(".");
+            Thread.sleep(500);
+            System.out.print(".");
+            Thread.sleep(500);
+            System.out.println(".");
+            System.out.println("\n=== New Contact Added ===");
+            Utility.pressEnterToContinue();
+        } catch(InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
-    public void searchContact(Scanner sc, Contact persons) {
+    private Contact addContactUtil(Contact current, Contact newContact) {
+        if(current == null) {
+            Contact.count++;
+            return newContact;
+        }
+        if(current.compareTo(newContact) > 0) {
+            current.left = addContactUtil(current.left, newContact);
+        }
+        else if(current.compareTo(newContact) < 0) {
+            current.right = addContactUtil(current.right, newContact);
+        }
+        return current;
+    }
+
+    public void searchContact(Scanner sc) {
         Utility.clearConsole();
         System.out.println("=== Add Contact ===\n");
 
         System.out.print("Full Name : ");
-        sc.nextLine();
+//        sc.nextLine();
         String newName = sc.nextLine();
-        Contact exists = searchContactUtil(persons, newName);
+        Contact exists = searchContactUtil(root, newName);
         if(exists != null){
             System.out.println(exists.toString());
             return;
@@ -222,26 +236,36 @@ public class Service {
         System.out.println(newName + " doesnot exist");
     }
 
-    private Contact searchContactUtil(Contact persons, String newName) {
-        if(persons == null || persons.compareTo(newName) == 0) {
-            return persons;
+    private Contact searchContactUtil(Contact current, String newName) {
+        if(current == null) {
+            return null;
         }
-        if(persons.compareTo(newName) < 0) {
-            searchContactUtil(persons.right, newName);
+        if(current.compareTo(newName) == 0) {
+            return current;
         }
-        else if(persons.compareTo(newName) > 0) {
-            searchContactUtil(persons.left, newName);
+        if(current.compareTo(newName) < 0) {
+            return searchContactUtil(current.right, newName);
         }
-        return null;
+        else{
+            return searchContactUtil(current.left, newName);
+        }
     }
 
-    public void listContact(Contact persons) {
-        if(persons == null) {
-            System.out.println("null");
+    public void listContact() {
+        listContactUtil(root);
+    }
+
+    private void listContactUtil(Contact current) {
+        if(current == null) {
+            // System.out.println("null");
             return;
         }
-        listContact(persons.left);
-        System.out.println(persons.toString());
-        listContact(persons.right);
+        listContactUtil(current.left);
+        System.out.println(current.toString());
+        listContactUtil(current.right);
+    }
+
+    public Contact contacts() {
+        return root;
     }
 }
