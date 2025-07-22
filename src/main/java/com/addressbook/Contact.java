@@ -8,6 +8,7 @@ public class Contact implements Comparable<Contact>{
 	Contact left;
 	Contact right;
 	public static int count = 0;
+	public int height;
 
 	public Contact(String name, long mobile, String address, String email) {
 		this.name = name;
@@ -16,6 +17,7 @@ public class Contact implements Comparable<Contact>{
 		this.email = email;
 		this.left = null;
 		this.right = null;
+		height = 1;
 	}
 
     @Override
@@ -62,5 +64,12 @@ public class Contact implements Comparable<Contact>{
 
 	public int compareTo(String cname) {
 		return this.name.compareToIgnoreCase(cname);
+	}
+
+	public void setData(Contact temp) {
+		this.name = temp.name;
+		this.mobile = temp.mobile;
+		this.address = temp.address;
+		this.email = temp.email;
 	}
 }

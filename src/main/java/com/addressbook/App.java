@@ -31,10 +31,10 @@ public class App {
                     Utility.pressEnterToContinue();
                     break;
                 case "4":
-
+                    serv.editContact(sc);
                     break;
                 case "5":
-
+                    serv.deleteContact(sc);
                     break;
                 case "0":
                     loop = false;
