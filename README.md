@@ -11,14 +11,14 @@ Address-Book-CLI/                     ← Top-level repository
 ├── .gitignore                        ← Files and folders to ignore in Git
 ├── LICENSE
 │── pom.xml                           ← Maven build script for the CLI module
-│── target/                            ← output: compiled classes (`.class`) and JARs (auto-generated)
-│── src/
+│── target/                           ← output: compiled classes (`.class`) and JARs (auto-generated)
+│── src/main/java
 │   └── com/addressbook/
 │       │── App.java                  ← Entry point and main menu loop (Menu, InputReader)
 │       ├── Contact.java              ← Domain class representing contacts
-│       ├── Service.java               ← Core logic: AddressBook, Command interface, Add/Edit/Delete commands
+│       ├── Service.java              ← Core logic: AddressBook, Command interface, Add/Edit/Delete commands
 │       └── Utility.java              ← Serializer (JSON & vCard extractor), Validator
-└── addressbook.json              ← Default JSON persistence file
+└── addressbook.json                  ← Default JSON persistence file
 
 ```
 <!-- ├── .github/                      ← GitHub configuration: CI/CD, issue & PR templates, project board
@@ -53,7 +53,7 @@ This project Address Book application implements:
 
      ```bash
      mvn clean install
-     java -cp target/address-book-cli.jar com.addressbook.App
+     java -cp target/address-book-cli-1.0-SNAPSHOT.jar com.addressbook.App
      ```
 
    *Note: This was performed in terminal of Intellij Idea Community Edition and might not work in VS code*
