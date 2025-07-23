@@ -66,6 +66,10 @@ public class Contact implements Comparable<Contact>{
 		return this.name.compareToIgnoreCase(cname);
 	}
 
+	public boolean compareToUtil(String test) {
+		return name.substring(0,test.length()).equalsIgnoreCase(test);
+	}
+
 	public void setData(Contact temp) {
 		this.name = temp.name;
 		this.mobile = temp.mobile;
