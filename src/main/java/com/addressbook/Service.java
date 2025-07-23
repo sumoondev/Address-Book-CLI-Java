@@ -1,13 +1,6 @@
 package com.addressbook;
 
-import java.io.IOException;
-//import com.google.gson.Gson;
-//import com.google.gson.reflect.TypeToken;
-//
-//import java.io.*;
-//import java.lang.reflect.Type;
-//import java.util.ArrayList;
-//import java.util.List;
+//import java.io.IOException;
 import java.util.Scanner;
 
 public class Service {
@@ -69,12 +62,12 @@ public class Service {
         }
     }
 
-    public static boolean isNameValid(String name) {
+    private static boolean isNameValid(String name) {
         String nameRegex = "^[a-zA-Z-'\\s]+ [a-zA-Z-'\\s]+$";
         return name.matches(nameRegex);
     }
 
-    public static boolean isValidGmail(String email) {
+    private static boolean isValidGmail(String email) {
         String validate = "@gmail.com";
         if(email.length() <= validate.length()) {
             return false;
@@ -87,7 +80,7 @@ public class Service {
         return false;
     }
 
-    public static void display(int t) {
+    private static void display(int t) {
         Utility.clearConsole();
         System.out.println("=== Add Contact ===\n");
         System.out.print("Full Name : ");
@@ -99,7 +92,7 @@ public class Service {
         System.out.print("Full Name : ");
     }
 
-    public static void display(String name, int t) {
+    private static void display(String name, int t) {
         Utility.clearConsole();
         System.out.println("=== Add Contact ===\n");
         System.out.println("Full Name : " + name);
@@ -113,7 +106,7 @@ public class Service {
         System.out.print("Mobile : ");
     }
 
-    public static void display(String name, long mobile, int t) {
+    private static void display(String name, long mobile, int t) {
         Utility.clearConsole();
         System.out.println("=== Add Contact ===\n");
         System.out.println("Full Name : " + name);
@@ -129,7 +122,7 @@ public class Service {
         System.out.print("Address : ");
     }
 
-    public static void display(String name, long mobile, String address, int t) {
+    private static void display(String name, long mobile, String address, int t) {
         Utility.clearConsole();
         System.out.println("=== Add Contact ===\n");
         System.out.println("Full Name : " + name);
@@ -147,7 +140,7 @@ public class Service {
         System.out.print("Gmail : ");
     }
 
-    public static void display(Contact curr) {
+    private static void display(Contact curr) {
         System.out.println("1) Full Name : " + curr.getName());
         System.out.println("2) Mobile : " + curr.getMobile());
         System.out.println("3) Address : " + curr.getAddress());
@@ -327,14 +320,22 @@ public class Service {
         System.out.print("Full Name : ");
 //        sc.nextLine();
         String newName = sc.nextLine();
-        Contact exists = searchContactUtil(root, newName);
-        if(exists != null){
-            Utility.clearConsole();
-            System.out.println("=== Searched Contact ===\n");
-            display(exists);
+        Utility.clearConsole();
+        System.out.println("=== Searched Contact ===\n");
+        searchContactUtilA(root, newName);
+//        System.out.println(newName + " does not exist");
+    }
+
+    private void searchContactUtilA(Contact current, String search) {
+        if(current == null) {
             return;
         }
-        System.out.println(newName + " doesnot exist");
+        searchContactUtilA(current.left, search);
+        if(current.compareToUtil(search)) {
+            display(current);
+            System.out.println("-------------------------------");
+        }
+        searchContactUtilA(current.right, search);
     }
 
     private Contact searchContactUtil(Contact current, String newName) {
