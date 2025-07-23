@@ -241,10 +241,10 @@ public class Service {
     }
 
     private static int height(Contact curr) {
-        if(root == null) {
+        if(curr == null) {
             return 0;
         }
-        return root.height;
+        return curr.height;
     }
 
     private static Contact rightRotate(Contact critNode) {
@@ -295,7 +295,7 @@ public class Service {
             return current;
         }
 
-        current.height = 1 + Math.max(height(root.left), height(current.right));
+        current.height = 1 + Math.max(height(current.left), height(current.right));
 
         int bf = getBalance(current);
 
@@ -399,10 +399,10 @@ public class Service {
                 System.out.println("Mobile : " + curr.getMobile());
                 System.out.println("Email : " + curr.getEmail());
                 System.out.println("Address : " + curr.getAddress());
-                System.out.println("Full Name : ");
+                System.out.print("Full Name : ");
                 String name = sc.nextLine();
-                if(isNameValid(name)) {
-                    System.out.println("Address empty invalid!!!\nAddress Unchanged");
+                if(!isNameValid(name)) {
+                    System.out.println("Name Invalid!!!\nName Unchanged");
                 } else {
                     Contact newContact = new Contact(name, curr.getMobile(), curr.getAddress(), curr.getEmail());
                     root = deleteContactUtil(root, curr);
@@ -476,7 +476,7 @@ public class Service {
 
     public void deleteContact(Scanner sc) {
         Utility.clearConsole();
-        System.out.println("=== Edit Contact ===");
+        System.out.println("=== Delete Contact ===");
         System.out.print("Full Name: ");
         String name = sc.nextLine();
 
@@ -500,9 +500,6 @@ public class Service {
     }
 
     private Contact deleteContactUtil(Contact curr, Contact del) {
-        if(curr == null) {
-            return curr;
-        }
         if(curr.compareTo(del) > 0) {
             curr.left = deleteContactUtil(curr.left, del);
         }
@@ -518,7 +515,6 @@ public class Service {
                     temp = curr.left;
                 }
                 if(temp == null) {
-                    temp = curr;
                     curr = null;
                 } else {
                     curr = temp;
@@ -536,7 +532,7 @@ public class Service {
             return curr;
         }
 
-        curr.height = Math.max(height(curr.left), height(curr.right));
+        curr.height = Math.max(height(curr.left), height(curr.right))+1;
 
         int bf = getBalance(curr);
 
@@ -558,6 +554,6 @@ public class Service {
             return leftRotate(curr);
         }
 
-        return root;
+        return curr;
     }
 }
