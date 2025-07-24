@@ -37,7 +37,7 @@ This project Address Book application implements:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/PhantomBenz/Address-Book-CLI.git
+   git clone https://github.com/PhantomBenz/Address-Book-CLI-Java.git
    cd Address-Book-CLI/
    ```
 
@@ -93,4 +93,4 @@ This module is distributed under the [GNU License](LICENSE).
 
 ---
 
-— Built by **The G's** | © 2025
+<!-- — Built by **The G's** | © 2025 -->
