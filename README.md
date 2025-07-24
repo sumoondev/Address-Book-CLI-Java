@@ -38,7 +38,7 @@ This project Address Book application implements:
 1. **Clone the repository**
    ```bash
    git clone https://github.com/PhantomBenz/Address-Book-CLI-Java.git
-   cd Address-Book-CLI/
+   cd Address-Book-CLI-Java/
    ```
 
 2. **Build and Run**
