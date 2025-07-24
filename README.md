@@ -44,10 +44,8 @@ This project Address Book application implements:
 2. **Build and Run**
 
    * **Required Dependencies**
-      ```
       - Maven for java
       - Language Support for Java(TM)
-      ```
 
    * **Maven**:
 
