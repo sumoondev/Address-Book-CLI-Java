@@ -1,7 +1,5 @@
 package com.addressbook;
 
-import sun.nio.ch.Util;
-
 import java.util.Scanner;
 
 public class App {
